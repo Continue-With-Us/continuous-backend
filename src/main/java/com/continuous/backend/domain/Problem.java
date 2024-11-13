@@ -1,5 +1,8 @@
 package com.continuous.backend.domain;
 
+import lombok.Getter;
+
+@Getter
 public class Problem {
 
     private final long id;

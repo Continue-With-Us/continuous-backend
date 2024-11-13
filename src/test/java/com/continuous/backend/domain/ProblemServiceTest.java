@@ -8,7 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.continuous.backend.support.MockCourseRepository;
 import com.continuous.backend.support.MockProblemRepository;
+import com.continuous.backend.support.MockTagRepository;
 
 class ProblemServiceTest {
 
@@ -17,7 +19,9 @@ class ProblemServiceTest {
     @BeforeEach
     void setUp() {
         MockProblemRepository problemRepository = new MockProblemRepository();
-        problemService = new ProblemService(problemRepository);
+        MockCourseRepository courseRepository = new MockCourseRepository();
+        MockTagRepository tagRepository = new MockTagRepository();
+        problemService = new ProblemService(problemRepository, courseRepository, tagRepository);
     }
 
     @DisplayName("문제 목록을 가져온다.")
@@ -28,5 +32,19 @@ class ProblemServiceTest {
 
         // then
         assertThat(problems).hasSize(2);
+    }
+
+    @DisplayName("문제 메타데이터 목록을 가져온다.")
+    @Test
+    void getProblemWithMetadata() {
+        // when
+        List<ProblemWithMetadata> problems = problemService.getProblemsWithMetadata();
+
+        //then
+        assertThat(problems).hasSize(2);
+        assertThat(problems.get(0).getCourse()).isEqualTo(Course.BACKEND);
+        assertThat(problems.get(0).getTags()).containsExactly(Tag.JAVA);
+        assertThat(problems.get(1).getCourse()).isEqualTo(Course.FRONTEND);
+        assertThat(problems.get(1).getTags()).containsExactly(Tag.JAVASCRIPT);
     }
 }
