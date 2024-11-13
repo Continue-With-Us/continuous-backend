@@ -1,21 +1,15 @@
 package com.continuous.backend.domain;
 
-import java.util.List;
-
 public class Problem {
 
     private final long id;
     private final String title;
-    private final List<Tag> tags;
-    private final Course course;
 
-    public Problem(long id, String title, List<Tag> tags, Course course) {
+    public Problem(long id, String title) {
         validateTitle(title);
 
         this.id = id;
         this.title = title;
-        this.tags = tags;
-        this.course = course;
     }
 
     private void validateTitle(String title) {
