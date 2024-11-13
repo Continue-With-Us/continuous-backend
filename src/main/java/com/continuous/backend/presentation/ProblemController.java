@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.continuous.backend.domain.ProblemService;
@@ -22,8 +23,11 @@ public class ProblemController {
     }
 
     @GetMapping
-    public ApiResponse<List<ProblemResponse>> getProblems() {
-        List<ProblemWithMetadata> problemsWithMetadata = problemService.getProblemsWithMetadata();
+    public ApiResponse<List<ProblemResponse>> getProblems(
+        @RequestParam(required = false) String course,
+        @RequestParam(required = false) List<String> tags
+    ) {
+        List<ProblemWithMetadata> problemsWithMetadata = problemService.getProblemsWithMetadataFiltered(course, tags);
         List<ProblemResponse> responses = problemsWithMetadata.stream()
             .map(ProblemResponse::from)
             .toList();
