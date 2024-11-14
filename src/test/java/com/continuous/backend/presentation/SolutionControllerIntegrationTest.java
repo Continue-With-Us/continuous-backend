@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.jdbc.Sql;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -80,6 +81,40 @@ class SolutionControllerIntegrationTest {
             .body(requestBody)
             .when()
             .post("/v1/problems/{id}/solutions", problemId)
+            .then()
+            .statusCode(404)
+            .contentType(ContentType.JSON);
+    }
+
+    @DisplayName("GET /v1/problems/{id}/solutions - 문제에 대한 솔루션 목록을 조회한다.")
+    @Test
+    @Sql("/solution-test-data.sql")
+    void getSolutions() {
+        long problemId = 1L;
+
+        given()
+            .contentType(ContentType.JSON)
+            .when()
+            .get("/v1/problems/{id}/solutions", problemId)
+            .then()
+            .statusCode(200)
+            .contentType(ContentType.JSON)
+            .body("status", equalTo("success"))
+            .body("data", not(empty()))
+            .body("data.size()", greaterThan(0))
+            .body("data[0].problemId", equalTo((int)problemId))
+            .body("data[0].content", notNullValue());
+    }
+
+    @DisplayName("GET /v1/problems/{id}/solutions - 존재하지 않는 문제 ID로 조회하면 404를 반환한다.")
+    @Test
+    void getSolutionsByNonExistentProblemId() {
+        long problemId = 9999L;
+
+        given()
+            .contentType(ContentType.JSON)
+            .when()
+            .get("/v1/problems/{id}/solutions", problemId)
             .then()
             .statusCode(404)
             .contentType(ContentType.JSON);
