@@ -32,6 +32,6 @@ public class HintEntity {
     private long problemId;
 
     public Hint toHint() {
-        return new Hint(id, exampleCode, resourceUrl);
+        return new Hint(id, exampleCode, resourceUrl, problemId);
     }
 }
