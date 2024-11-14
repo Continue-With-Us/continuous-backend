@@ -2,6 +2,9 @@ package com.continuous.backend.domain;
 
 import java.util.Arrays;
 
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
+
 public enum Course {
     BACKEND, FRONTEND;
 
@@ -9,6 +12,6 @@ public enum Course {
         return Arrays.stream(values())
             .filter(course -> course.name().equals(value))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("유효하지 않는 코스 값 입니다: " + value));
+            .orElseThrow(() -> new CoreException(CoreErrorType.RESOURCE_NOT_FOUND));
     }
 }

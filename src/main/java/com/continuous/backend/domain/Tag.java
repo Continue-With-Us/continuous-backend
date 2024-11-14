@@ -2,6 +2,9 @@ package com.continuous.backend.domain;
 
 import java.util.Arrays;
 
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
+
 public enum Tag {
     JAVA, JAVASCRIPT;
 
@@ -9,6 +12,6 @@ public enum Tag {
         return Arrays.stream(values())
             .filter(tag -> tag.name().equals(value))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 태그 값입니다: " + value));
+            .orElseThrow(() -> new CoreException(CoreErrorType.RESOURCE_NOT_FOUND));
     }
 }
