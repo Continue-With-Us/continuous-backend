@@ -16,6 +16,10 @@ public enum CoreErrorType {
     BAD_REQUEST("BAD_REQUEST", "요청이 유효하지 않습니다.", HttpStatus.BAD_REQUEST),
     TOO_MANY_REQUESTS("TOO_MANY_REQUESTS", "너무 많은 요청이 발생했습니다.", HttpStatus.TOO_MANY_REQUESTS),
 
+    // Problem
+    PROBLEM_TITLE_EMPTY("PROBLEM_TITLE_EMTPY", "문제의 제목은 비어있을 수 없습니다.", HttpStatus.BAD_REQUEST),
+    PROBLEM_TITLE_TOO_LONG("PROBLEM_TITLE_TOO_LONG", "문제의 제목은 50자를 넘을 수 없습니다.", HttpStatus.BAD_REQUEST),
+
     // Solution
     SOLUTION_CONTENT_EMPTY("SOLUTION_CONTENT_EMPTY", "답변은 비어있을 수 없습니다.", HttpStatus.BAD_REQUEST),
     SOLUTION_CONTENT_TOO_LONG("SOLUTION_CONTENT_TOO_LONG", "답변은 100자를 넘을 수 없습니다.", HttpStatus.BAD_REQUEST);

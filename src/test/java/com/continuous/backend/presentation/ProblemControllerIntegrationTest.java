@@ -158,7 +158,7 @@ class ProblemControllerIntegrationTest {
             .when()
             .get("/v1/problems/{id}")
             .then()
-            .statusCode(500) // TODO: 에러 공통화
+            .statusCode(404)
             .contentType(ContentType.JSON);
         // .body("status", equalTo("error"));
         // .body("message", notNullValue());
