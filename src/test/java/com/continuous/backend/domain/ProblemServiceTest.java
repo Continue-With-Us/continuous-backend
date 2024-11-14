@@ -47,4 +47,19 @@ class ProblemServiceTest {
         assertThat(problems.get(1).getCourse()).isEqualTo(Course.FRONTEND);
         assertThat(problems.get(1).getTags()).containsExactly(Tag.JAVASCRIPT);
     }
+
+    @DisplayName("문제 ID 로 특정 문제 메타데이터를 가져온다.")
+    @Test
+    void getProblem() {
+        // given
+        long problemId = 1L;
+
+        // when
+        ProblemWithMetadata problem = problemService.getProblem(problemId);
+
+        // then
+        assertThat(problem.getProblem().getId()).isEqualTo(problemId);
+        assertThat(problem.getCourse()).isEqualTo(Course.BACKEND);
+        assertThat(problem.getTags()).containsExactly(Tag.JAVA);
+    }
 }

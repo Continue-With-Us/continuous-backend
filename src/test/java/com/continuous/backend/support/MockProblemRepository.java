@@ -21,4 +21,15 @@ public class MockProblemRepository implements ProblemRepository {
 
         return problems;
     }
+
+    @Override
+    public Problem findById(long problemId) {
+        if (problemId == 1L) {
+            return new Problem(1L, "자바 Enum에 대해서 설명해주세요.");
+        }
+        if (problemId == 2L) {
+            return new Problem(2L, "클로저에 대해서 설명해주세요.");
+        }
+        throw new IllegalArgumentException("ID 에 해당하는 문제가 없습니다 ID: " + problemId);
+    }
 }

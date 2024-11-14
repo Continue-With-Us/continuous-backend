@@ -52,4 +52,12 @@ public class ProblemService {
             })
             .toList();
     }
+
+    public ProblemWithMetadata getProblem(long problemId) {
+        Problem problem = problemRepository.findById(problemId);
+        Course course = courseRepository.findByProblemId(problemId);
+        List<Tag> tags = tagRepository.findAllByProblemId(problemId);
+
+        return new ProblemWithMetadata(problem, course, tags);
+    }
 }
