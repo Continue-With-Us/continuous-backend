@@ -31,4 +31,9 @@ public class ProblemCoreRepository implements ProblemRepository {
 
         return problemEntity.toProblem();
     }
+
+    @Override
+    public boolean existsById(long problemId) {
+        return problemJpaRepository.existsById(problemId);
+    }
 }
