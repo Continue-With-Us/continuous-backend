@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
 import com.continuous.backend.support.MockProblemRepository;
 import com.continuous.backend.support.MockSolutionRepository;
 
@@ -44,6 +46,7 @@ class SolutionServiceTest {
 
         // when & then
         assertThatThrownBy(() -> solutionService.submit(content, problemId))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(CoreException.class)
+            .hasMessage(CoreErrorType.RESOURCE_NOT_FOUND.getMessage());
     }
 }

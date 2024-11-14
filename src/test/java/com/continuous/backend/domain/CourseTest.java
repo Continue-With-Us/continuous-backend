@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.continuous.backend.exception.CoreException;
+
 public class CourseTest {
 
     @DisplayName("유효한 코스 값을 변환할 수 있다.")
@@ -26,6 +28,6 @@ public class CourseTest {
     void from_invalidValue_throwsException() {
         // when & then
         assertThatThrownBy(() -> Course.from("INVALID"))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(CoreException.class);
     }
 }

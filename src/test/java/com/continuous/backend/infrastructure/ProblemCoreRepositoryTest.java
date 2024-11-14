@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +15,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.continuous.backend.domain.Problem;
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
 
 @DataJpaTest
 @Import(ProblemCoreRepository.class)
@@ -70,7 +71,8 @@ class ProblemCoreRepositoryTest {
 
         // when & then
         assertThatThrownBy(() -> problemCoreRepository.findById(problemId))
-            .isInstanceOf(NoSuchElementException.class);
+            .isInstanceOf(CoreException.class)
+            .hasMessage(CoreErrorType.RESOURCE_NOT_FOUND.getMessage());
     }
 }
 

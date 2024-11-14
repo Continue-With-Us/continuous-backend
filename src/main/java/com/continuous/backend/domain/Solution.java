@@ -2,6 +2,9 @@ package com.continuous.backend.domain;
 
 import java.util.Objects;
 
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
+
 import lombok.Getter;
 
 @Getter
@@ -13,7 +16,7 @@ public class Solution {
 
     public Solution(Long id, String content, long problemId) {
         validateContent(content);
-        
+
         this.id = id;
         this.content = content;
         this.problemId = problemId;
@@ -24,8 +27,11 @@ public class Solution {
     }
 
     private void validateContent(String content) {
-        if (content == null || content.isBlank() || content.length() > 100) {
-            throw new IllegalArgumentException("답변은 비어있거나 100자를 넘을 수 없습니다.");
+        if (content == null || content.isBlank()) {
+            throw new CoreException(CoreErrorType.SOLUTION_CONTENT_EMPTY);
+        }
+        if (content.length() > 100) {
+            throw new CoreException(CoreErrorType.SOLUTION_CONTENT_TOO_LONG);
         }
     }
 

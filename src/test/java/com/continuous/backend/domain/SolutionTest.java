@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
+
 class SolutionTest {
 
     @DisplayName("답변의 길이는 100자 이하여야 한다.")
@@ -15,8 +18,8 @@ class SolutionTest {
     void create_blank(String content) {
         // when & then
         assertThatThrownBy(() -> new Solution(content, 1L))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage("답변은 비어있거나 100자를 넘을 수 없습니다.");
+            .isInstanceOf(CoreException.class)
+            .hasMessage(CoreErrorType.SOLUTION_CONTENT_EMPTY.getMessage());
     }
 
     @DisplayName("답변의 길이는 100자 이하여야 한다.")
@@ -27,7 +30,7 @@ class SolutionTest {
 
         // when & then
         assertThatThrownBy(() -> new Solution(content, 1L))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage("답변은 비어있거나 100자를 넘을 수 없습니다.");
+            .isInstanceOf(CoreException.class)
+            .hasMessage(CoreErrorType.SOLUTION_CONTENT_TOO_LONG.getMessage());
     }
 }

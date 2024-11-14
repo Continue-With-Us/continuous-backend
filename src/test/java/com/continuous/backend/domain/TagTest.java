@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.continuous.backend.exception.CoreException;
+
 class TagTest {
 
     @DisplayName("유효한 태그 값을 변환할 수 있다.")
@@ -26,6 +28,6 @@ class TagTest {
     void from_invalidValue_throwsException(String value) {
         // when & then
         assertThatThrownBy(() -> Tag.from(value))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(CoreException.class);
     }
 }

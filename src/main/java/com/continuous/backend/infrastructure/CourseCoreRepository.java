@@ -1,11 +1,11 @@
 package com.continuous.backend.infrastructure;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.stereotype.Repository;
 
 import com.continuous.backend.domain.Course;
 import com.continuous.backend.domain.CourseRepository;
+import com.continuous.backend.exception.CoreErrorType;
+import com.continuous.backend.exception.CoreException;
 
 @Repository
 public class CourseCoreRepository implements CourseRepository {
@@ -19,7 +19,7 @@ public class CourseCoreRepository implements CourseRepository {
     @Override
     public Course findByProblemId(long problemId) {
         CourseEntity courseEntity = CourseJpaRepository.findByProblemId(problemId)
-            .orElseThrow(() -> new NoSuchElementException("해당 problemId 에 해당하는 코스가 존재하지 않습니다. problemId: " + problemId));
+            .orElseThrow(() -> new CoreException(CoreErrorType.RESOURCE_NOT_FOUND));
         return courseEntity.toCourse();
     }
 }
