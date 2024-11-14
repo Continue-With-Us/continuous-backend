@@ -1,6 +1,6 @@
 package com.continuous.backend.infrastructure;
 
-import com.continuous.backend.domain.Hint;
+import com.continuous.backend.domain.Feedback;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,25 +13,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "hint")
+@Table(name = "feedback")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class HintEntity {
+public class FeedbackEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "example_code", length = 1000)
-    private String exampleCode;
+    @Column(name = "content")
+    private String content;
 
-    @Column(name = "resource_url")
-    private String resourceUrl;
+    public FeedbackEntity(String content) {
+        this.content = content;
+    }
 
-    @Column(name = "problem_id")
-    private long problemId;
+    public static FeedbackEntity from(Feedback feedback) {
+        return new FeedbackEntity(feedback.getContent());
+    }
 
-    public Hint toHint() {
-        return new Hint(id, exampleCode, resourceUrl, problemId);
+    public Feedback toFeedback() {
+        return new Feedback(id, content);
     }
 }
