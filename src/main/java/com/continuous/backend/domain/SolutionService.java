@@ -1,5 +1,7 @@
 package com.continuous.backend.domain;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.continuous.backend.exception.CoreErrorType;
@@ -17,10 +19,19 @@ public class SolutionService {
     }
 
     public Solution submit(String content, long problemId) {
+        validateProblemExists(problemId);
+        return solutionRepository.save(new Solution(content, problemId));
+    }
+
+    public List<Solution> getSolutions(long problemId) {
+        validateProblemExists(problemId);
+        return solutionRepository.findAllByProblemId(problemId);
+    }
+
+    private void validateProblemExists(long problemId) {
         boolean exists = problemRepository.existsById(problemId);
         if (!exists) {
             throw new CoreException(CoreErrorType.RESOURCE_NOT_FOUND);
         }
-        return solutionRepository.save(new Solution(content, problemId));
     }
 }

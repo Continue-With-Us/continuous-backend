@@ -1,6 +1,8 @@
 package com.continuous.backend.support;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,5 +23,16 @@ public class MockSolutionRepository implements SolutionRepository {
         }
         storage.replace(solution.getId(), solution);
         return solution;
+    }
+
+    @Override
+    public List<Solution> findAllByProblemId(long problemId) {
+        ArrayList<Solution> solutions = new ArrayList<>();
+        for (Solution solution : storage.values()) {
+            if (solution.getProblemId() == problemId) {
+                solutions.add(solution);
+            }
+        }
+        return solutions;
     }
 }
