@@ -2,6 +2,8 @@ package com.continuous.backend.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,5 +50,24 @@ class SolutionServiceTest {
         assertThatThrownBy(() -> solutionService.submit(content, problemId))
             .isInstanceOf(CoreException.class)
             .hasMessage(CoreErrorType.RESOURCE_NOT_FOUND.getMessage());
+    }
+
+    @DisplayName("문제의 모든 솔루션을 조회한다.")
+    @Test
+    void getSolutions() {
+        // given
+        long problemId = 1L;
+        String content1 = "나의 답변 1";
+        solutionService.submit(content1, problemId);
+        String content2 = "나의 답변 2";
+        solutionService.submit(content2, problemId);
+
+        // when
+        List<Solution> solutions = solutionService.getSolutions(problemId);
+
+        //then
+        assertThat(solutions).hasSize(2);
+        assertThat(solutions.get(0).getContent()).isEqualTo(content1);
+        assertThat(solutions.get(1).getContent()).isEqualTo(content2);
     }
 }
