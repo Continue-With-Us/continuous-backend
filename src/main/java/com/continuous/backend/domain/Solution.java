@@ -7,13 +7,17 @@ import lombok.Getter;
 @Getter
 public class Solution {
 
-    private final long id;
+    private final Long id;
     private final String content;
 
-    public Solution(long id, String content) {
+    public Solution(Long id, String content) {
         validateContent(content);
         this.id = id;
         this.content = content;
+    }
+
+    public Solution(String content) {
+        this(null, content);
     }
 
     private void validateContent(String content) {
