@@ -22,7 +22,7 @@ public class HintEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "example_code")
+    @Column(name = "example_code", length = 1000)
     private String exampleCode;
 
     @Column(name = "resource_url")
