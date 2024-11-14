@@ -11,7 +11,7 @@ public class SolutionService {
         this.solutionRepository = solutionRepository;
     }
 
-    public Solution submit(String content) {
-        return solutionRepository.save(new Solution(content));
+    public Solution submit(String content, long problemId) {
+        return solutionRepository.save(new Solution(content, problemId));
     }
 }

@@ -9,15 +9,18 @@ public class Solution {
 
     private final Long id;
     private final String content;
+    private final long problemId;
 
-    public Solution(Long id, String content) {
+    public Solution(Long id, String content, long problemId) {
         validateContent(content);
+        
         this.id = id;
         this.content = content;
+        this.problemId = problemId;
     }
 
-    public Solution(String content) {
-        this(null, content);
+    public Solution(String content, long problemId) {
+        this(null, content, problemId);
     }
 
     private void validateContent(String content) {

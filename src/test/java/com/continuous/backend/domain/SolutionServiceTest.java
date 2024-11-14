@@ -23,9 +23,10 @@ class SolutionServiceTest {
     void submit() {
         // given
         String content = "나의 답변";
+        long problemId = 1L;
 
         // when
-        Solution solution = solutionService.submit(content);
+        Solution solution = solutionService.submit(content, problemId);
 
         //then
         assertThat(solution.getId()).isEqualTo(1L);

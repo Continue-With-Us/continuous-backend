@@ -15,19 +15,11 @@ public class MockSolutionRepository implements SolutionRepository {
     @Override
     public Solution save(Solution solution) {
         if (solution.getId() == null) {
-            Solution newSolution = new Solution(idGenerator.incrementAndGet(), solution.getContent());
+            Solution newSolution = new Solution(idGenerator.incrementAndGet(), solution.getContent(), solution.getProblemId());
             storage.put(newSolution.getId(), solution);
             return newSolution;
         }
         storage.replace(solution.getId(), solution);
         return solution;
-    }
-
-    public Solution findById(Long id) {
-        return storage.get(id);
-    }
-
-    public Map<Long, Solution> findAll() {
-        return new HashMap<>(storage);
     }
 }

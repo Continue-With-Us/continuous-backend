@@ -14,7 +14,7 @@ class SolutionTest {
     @ValueSource(strings = {"", "  "})
     void create_blank(String content) {
         // when & then
-        assertThatThrownBy(() -> new Solution(1L, content))
+        assertThatThrownBy(() -> new Solution(content, 1L))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("답변은 비어있거나 100자를 넘을 수 없습니다.");
     }
@@ -26,7 +26,7 @@ class SolutionTest {
         String content = "백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백글자이상답변입니다백";
 
         // when & then
-        assertThatThrownBy(() -> new Solution(1L, content))
+        assertThatThrownBy(() -> new Solution(content, 1L))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("답변은 비어있거나 100자를 넘을 수 없습니다.");
     }
