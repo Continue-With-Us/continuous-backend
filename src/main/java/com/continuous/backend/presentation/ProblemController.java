@@ -3,6 +3,7 @@ package com.continuous.backend.presentation;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,12 @@ public class ProblemController {
             .toList();
 
         return ApiResponse.success(responses);
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<ProblemResponse> getProblem(@PathVariable("id") long problemId) {
+        ProblemWithMetadata problem = problemService.getProblem(problemId);
+
+        return ApiResponse.success(ProblemResponse.from(problem));
     }
 }

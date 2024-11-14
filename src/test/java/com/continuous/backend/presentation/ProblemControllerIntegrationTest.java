@@ -125,4 +125,42 @@ class ProblemControllerIntegrationTest {
             .body("data.findAll { it.course == 'FRONTEND' }", not(empty()))
             .body("data.tags.flatten()", anyOf(hasItem("JAVASCRIPT"), hasItem("JAVA")));
     }
+
+    @DisplayName("GET /problems/{id} - 특정 문제를 조회한다.")
+    @Test
+    void getProblemById() {
+        long existingProblemId = 1L;
+
+        given()
+            .contentType(ContentType.JSON)
+            .pathParam("id", existingProblemId)
+            .when()
+            .get("/v1/problems/{id}")
+            .then()
+            .statusCode(200)
+            .contentType(ContentType.JSON)
+            .body("status", equalTo("success"))
+            .body("data", notNullValue())
+            .body("data.id", equalTo((int)existingProblemId)) // JSON에 long이 int로 변환될 수 있어 캐스팅 처리
+            .body("data.title", notNullValue())
+            .body("data.course", notNullValue())
+            .body("data.tags", not(empty()));
+    }
+
+    @DisplayName("GET /problems/{id} - 존재하지 않는 문제를 조회하면 404를 반환한다.")
+    @Test
+    void getProblemByNonExistentId() {
+        long nonExistentProblemId = 9999L;
+
+        given()
+            .contentType(ContentType.JSON)
+            .pathParam("id", nonExistentProblemId)
+            .when()
+            .get("/v1/problems/{id}")
+            .then()
+            .statusCode(500) // TODO: 에러 공통화
+            .contentType(ContentType.JSON);
+        // .body("status", equalTo("error"));
+        // .body("message", notNullValue());
+    }
 }

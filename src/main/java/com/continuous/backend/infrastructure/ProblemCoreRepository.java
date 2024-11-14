@@ -1,6 +1,7 @@
 package com.continuous.backend.infrastructure;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,13 @@ public class ProblemCoreRepository implements ProblemRepository {
         return problemJpaRepository.findAll().stream()
             .map(ProblemEntity::toProblem)
             .toList();
+    }
+
+    @Override
+    public Problem findById(long problemId) {
+        ProblemEntity problemEntity = problemJpaRepository.findById(problemId)
+            .orElseThrow(() -> new NoSuchElementException("ID에 해당하는 문제가 없습니다. ID: " + problemId));
+
+        return problemEntity.toProblem();
     }
 }
