@@ -81,7 +81,7 @@ class SolutionControllerIntegrationTest {
             .when()
             .post("/v1/problems/{id}/solutions", problemId)
             .then()
-            .statusCode(500) // TODO: 에러 공통화
+            .statusCode(404)
             .contentType(ContentType.JSON);
     }
 }
