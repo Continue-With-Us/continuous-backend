@@ -21,7 +21,8 @@ class SolutionServiceTest {
     void setUp() {
         SolutionRepository solutionRepository = new MockSolutionRepository();
         ProblemRepository problemRepository = new MockProblemRepository();
-        solutionService = new SolutionService(solutionRepository, problemRepository);
+        ProblemValidator problemValidator = new ProblemValidator(problemRepository);
+        solutionService = new SolutionService(solutionRepository, problemValidator);
     }
 
     @DisplayName("솔루션을 제출한다.")
