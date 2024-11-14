@@ -1,3 +1,9 @@
+TRUNCATE TABLE course;
+TRUNCATE TABLE tag;
+TRUNCATE TABLE problem;
+TRUNCATE TABLE problem_tag;
+TRUNCATE TABLE problem_course;
+
 -- Create and insert data for course table (if applicable)
 INSERT INTO course (id, name)
 VALUES (1, 'FRONTEND');

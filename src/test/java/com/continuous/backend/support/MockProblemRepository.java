@@ -32,4 +32,12 @@ public class MockProblemRepository implements ProblemRepository {
         }
         throw new IllegalArgumentException("ID 에 해당하는 문제가 없습니다 ID: " + problemId);
     }
+
+    @Override
+    public boolean existsById(long problemId) {
+        if (problemId == 1L || problemId == 2L) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -7,4 +7,6 @@ public interface ProblemRepository {
     List<Problem> findAll();
 
     Problem findById(long problemId);
+
+    boolean existsById(long problemId);
 }
